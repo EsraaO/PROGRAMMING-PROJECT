@@ -1,186 +1,205 @@
 import java.util.Scanner;
-
 class Main {
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-          System.out.println("Enter number of boxes you have:  ");
-          int n = input.nextInt(); //n is number of boxes
+public static void main(String[] args) {
+Scanner input = new Scanner(System.in);
+System.out.print("Enter number of boxes you have: ");
+int n = input.nextInt(); //n is number of boxes
 
-          System.out.println("Welcome to the Library Management System!");
-          System.out.println("1. Add a book \n2. Search for a Book (by Title or ID)\n3. Issue a Book (by ID)\n4. Return a Book (by ID)\n5. Delete a Book (by ID)\n6. Edit Book Details (Title/Description by ID)\n7. view All Books\n8. Exit");
+System.out.println("Welcome to the Library Management System!");
+System.out.println("1. Add a book \n2. Search for a Book (by Title or ID)\n3. Issue a Book (by ID)\n4. Return a Book (by ID)\n5. Delete a Book (by ID)\n6. Edit Book Details (Title/Description by ID)\n7. View All Books\n8. Exit");
 int choice; //declaring choice
 
-String[] booktitles = new String[n]; // Creates an array of size n to store book titles, all elements initialized to 0.
+String[] booktitles = new String[n]; // Creates an array of size n to store book titles 
 String[] bookdescriptions = new String[n]; // array to store descriptions of books
 String[] bookissued = new String[n]; // array to track availability of books
+// all elements of  the array are null
 int bookcount = 0; // tracks number of books in the library
         
-       String title; // to take book title from user
-       String description; // to take book description from user
-       int ID; // to take book ID from user
+String title; // to take book title from user
+String description; // to take book description from user
+int ID; // to take book ID from user
 
-       Scanner input1 = new Scanner(System.in);
+Scanner input1 = new Scanner(System.in);
         
-        do{
-             System.out.println();
-            System.out.print("Enter your choice: ");
-              choice=input.nextInt();
-              if(choice>8) // checking for choice number
-                  System.out.println("Error: Choose a number from 1 to 8 ");
+do{
+System.out.print("\nEnter your choice: ");
+choice=input.nextInt();
+
+
+if(choice<1||choice>8) // checking for choice number
+System.out.println("Error: Choose a number from 1 to 8 ");
+            
                   
-              if(choice==1){ // adding a book
-                  System.out.print("Enter book title: ");
-                  title=input1.nextLine(); 
-                  if(title==null||title.trim().isEmpty()){ // to check if there's invalid input for book title
-                      System.out.println("Error: invalid input");
-                      continue;
-                  }
-                  System.out.print("Enter book description: ");
-                  description=input1.nextLine();
-                  if(description==null||description.trim().isEmpty()){ // to check if there's invalid input for book description
-                      System.out.println("Error: invalid input");
-                      continue;
-                  }
-                  
-                  for(int i=0;i<n;i++){ // to check if there's an empty position to add a book
-                      if(booktitles[i]==null){
-                          booktitles[i]=title; 
-                          bookdescriptions[i]=description;
-                          bookissued[i]="available";
-                          bookcount++;
-                          break;
-                      }
-                      }
-              }
-                  
-                     else if(choice==2){ // searching for a book
-                         System.out.println("Choose:\n1.By title\n2.By ID ");
-                        int choice1=input.nextInt();
-                         if(choice1==1){
-                         Scanner input2=new Scanner(System.in); 
-                         System.out.print("Enter book title: ");
-                         title=input2.nextLine();
-                         
-                         for(int j=0;j<n;j++){// search for a book in each position in booktitles array
-                         if (booktitles[j]==null){ //checking if a position in array is empty, if yes=break
-                              System.out.println("Book title is nonexistant");
-                              break;
-                         } else if(booktitles[j].equals(title)){ //if book is available, print its  description, and status
-                             System.out.println("Description: "+bookdescriptions[j]+"\nStatus: "+bookissued[j]);
-                             break;
-                             
-                         }
-                         }
-                     } else if(choice1==2){ // search by book ID
-                         Scanner input2=new Scanner(System.in);
-                         System.out.print("Enter book ID: ");
-                         ID=input2.nextInt();
-                         if (ID>=n){ // checking for invalid ID inputs
-                             System.out.println("Invalid ID");
-                             continue;
-                         }
-                         
-                         if(bookissued[ID]==null) // if position is empty, print nonexistant
-                              System.out.println("Book ID is nonexistant");
-                         else // if ID exists, print its title, description, and status
-                              System.out.println("Title: "+booktitles[ID]+"\nDescription: "+bookdescriptions[ID]+"\nStatus: "+bookissued[ID]);   
-                     }
-                     } else if(choice==3){ //borrow a book
-                          Scanner input3=new Scanner(System.in);
-                         System.out.print("Enter book ID: ");
-                         ID=input3.nextInt();
-                          if (ID>=n){ // checking for invalid ID inputs
-                             System.out.println("Invalid ID");
-                             continue;
-                          }
-                         if(booktitles[ID]==null){ //if ID is nonexistant
-                              System.out.println("Book ID is nonexistant");
-                         
-                         } else if(bookissued[ID].equals("available")){ //if book is is available
-                              System.out.println("Book is available");
-                         bookissued[ID]="unavailable";
-                         System.out.println("You have borrowed the book");
-                         
-                         }else if(bookissued[ID].equals("unavailable")){ // if book is currently unavailable
-                             System.out.println("Unfortunately, the book is currently unavailable");
-                          
-                         }
-                     
-                     }else if(choice==4){ //returning a book
-                         Scanner input4=new Scanner(System.in);
-                         System.out.print("Enter book ID: ");
-                         ID=input4.nextInt();
-                          if (ID>=n){ // checking for invalid ID inputs
-                             System.out.println("Invalid ID");
-                             continue;
-                          }
-                         bookissued[ID]="available";
-                         System.out.print("The book has been returned, Thank you!");
-                         
-                     }else if(choice==5){ //deleting a book
-                         Scanner input5=new Scanner(System.in);
-                         System.out.print("Enter book ID: ");
-                         ID=input5.nextInt();
-                          if (ID>=n){ // checking for invalid ID inputs
-                             System.out.println("Invalid ID");
-                             continue;
-                          }
-                          booktitles[ID]=null;
-                          bookdescriptions[ID]=null;
-                          bookissued[ID]=null;
-                          bookcount--;
-                          System.out.print("The book has been removed");
-                          
-                          for(int k=ID;k<n-1;k++){ //shifting positions to fill the gap
-                              if(booktitles[k+1]==null)
-                                  break;
-                              else{
-                          booktitles[k]=booktitles[k+1];
-                          bookdescriptions[k]= bookdescriptions[k+1];
-                          bookissued[k]=bookissued[k+1];
-                          booktitles[k+1]=null;
-                          bookdescriptions[k+1]=null;
-                          bookissued[k+1]=null;
-                          
-                          }
-                          }
-                                  
-                     
-                     } else if(choice==6){ //editing book title or description
-                         Scanner input6=new Scanner(System.in);
-                         System.out.print("Enter book ID: ");
-                         ID=input6.nextInt();
-                          if (ID>=n){ // checking for invalid ID inputs
-                             System.out.println("Invalid ID");
-                             continue;
-                          }
-                         
-                          System.out.println("Choose:\n1.Edit title\n2.Edit description");
-                          int choice2=input6.nextInt();
-                          
-                          Scanner input7=new Scanner(System.in);
-                          if(choice2==1){ // editing book title
-                               System.out.println("Enter new title: ");
-                              title=input7.nextLine();
-                              booktitles[ID]=title;
-                               System.out.println("The book title has been changed");
-                              
-                          } else if(choice2==2){ //edit book description
-                              System.out.println("Enter new description: ");
-                              description=input7.nextLine();
-                              bookdescriptions[ID]=description;
-                               System.out.println("The book description has been changed");
-                          }
-                     } else if(choice==7){ // viewing book details
-                         for(int f=0;f<n;f++){
-                             if(booktitles[f]==null){
-                                 break;
-                             } else 
-                                 System.out.println("Title: "+booktitles[f]+" , Description: "+bookdescriptions[f]+" , Status: "+bookissued[f]);
-                         }
-                     }
-        } while(choice!=8);
-    } 
-    
+if(choice==1){ // adding a book
+System.out.println("Add a book:");
+System.out.print("Enter book title: ");
+title=input1.nextLine(); 
+if(title==null||title.trim().isEmpty()){ // to check if there's invalid input for book title
+System.out.println("Error: invalid input");
+continue;
 }
-    
+System.out.print("Enter book description: ");
+description=input1.nextLine();
+if(description==null||description.trim().isEmpty()){ // to check if there's invalid input for book description
+System.out.println("Error: invalid input");
+continue;
+}
+for(int i=0;i<n;i++){ // to check if there's an empty position to add a book
+if(booktitles[i]==null){
+booktitles[i]=title; 
+bookdescriptions[i]=description;
+bookissued[i]="available";
+bookcount++;
+break;
+}
+}
+} //end of choice 1
+                  
+                  
+else if(choice==2){ // searching for a book
+System.out.println("Search for a Book:");
+System.out.println("Choose:\n1.By title\n2.By ID "); //ask to choose search by title or ID
+int choice1=input.nextInt();
+
+if(choice1==1){ //search book by title
+Scanner input2=new Scanner(System.in); 
+System.out.print("Enter book title: ");
+title=input2.nextLine();
+for(int j=0;j<n;j++){ // search for a book in each position in booktitles array
+if (booktitles[j]==null){ //checking if a position in array is empty, if yes=break
+System.out.println("Book title is nonexistant");
+break;
+} 
+else if(booktitles[j].equals(title)){ //if a book with this title exists, print its  description, and status
+System.out.println("Description: "+bookdescriptions[j]+"\nStatus: "+bookissued[j]);
+break;
+}
+}
+} 
+else if(choice1==2){ // search book by ID
+Scanner input2=new Scanner(System.in);
+System.out.print("Enter book ID: ");
+ID=input2.nextInt();
+if (ID<0||ID>=n){ // checking for invalid ID inputs
+System.out.println("Invalid ID");
+continue; 
+}
+if(booktitles[ID]==null) // if position is empty, print nonexistant
+System.out.println("Book ID is nonexistant");
+else // if position ID nonempty , print book title, description, and status
+System.out.println("Title: "+booktitles[ID]+"\nDescription: "+bookdescriptions[ID]+"\nStatus: "+bookissued[ID]);
+}
+} 
+
+
+else if(choice==3){ //borrow a book
+System.out.println("Issue a Book:");
+Scanner input3=new Scanner(System.in); //take input ID
+System.out.print("Enter book ID: ");
+ID=input3.nextInt();
+if(ID<0||ID>=n){ // checking for invalid ID inputs
+System.out.println("Invalid ID");
+continue;
+}
+if(booktitles[ID]==null){ //if ID is nonexistant
+System.out.println("Book ID is nonexistant.");
+} 
+else if(bookissued[ID].equals("available")){ //if book is available
+System.out.println("Book is available,");
+bookissued[ID]="unavailable";
+System.out.println("The book has been borrowed.");
+}
+else if(bookissued[ID].equals("unavailable")){ // if book is currently unavailable
+System.out.println("Unfortunately, The book is currently unavailable.");
+}
+}
+
+
+else if(choice==4){ //returning a book
+System.out.println("Return a Book:");
+Scanner input4=new Scanner(System.in);
+System.out.print("Enter book ID: ");
+ID=input4.nextInt();
+if(ID<0||ID>=n){ // checking for invalid ID inputs
+System.out.println("Invalid ID");
+continue;
+}
+if(bookissued[ID].equals("unavailable")){
+bookissued[ID]="available";
+System.out.print("The book has been returned.");
+}
+else{
+System.out.print("The book is already available.");
+}
+}
+
+
+else if(choice==5){ //deleting a book
+System.out.println("Delete a Book:");
+Scanner input5=new Scanner(System.in);
+System.out.print("Enter book ID: ");
+ID=input5.nextInt();
+if(ID<0||ID>=n){ // checking for invalid ID inputs
+System.out.println("Invalid ID");
+continue;
+}
+booktitles[ID]=null;
+bookdescriptions[ID]=null;
+bookissued[ID]=null;
+bookcount--;
+System.out.print("The book has been deleted");
+for(int k=ID;k<n-1;k++){ //shifting positions to fill the gap
+if(booktitles[k+1]==null)
+break;
+else{
+booktitles[k]=booktitles[k+1];
+bookdescriptions[k]= bookdescriptions[k+1];
+bookissued[k]=bookissued[k+1];
+booktitles[k+1]=null;
+bookdescriptions[k+1]=null;
+bookissued[k+1]=null;
+}
+}
+}
+
+
+else if(choice==6){//editing book title or description
+System.out.println("Edit Book Details:");
+Scanner input6=new Scanner(System.in);
+System.out.print("Enter book ID: ");
+ID=input6.nextInt();
+if(ID<0||ID>=n){ // checking for invalid ID inputs
+System.out.println("Invalid ID");
+continue;
+}
+System.out.println("Choose:\n1.Edit title\n2.Edit description");
+int choice2=input6.nextInt();
+ Scanner input7=new Scanner(System.in);
+ if(choice2==1){ // editing book title
+System.out.println("Enter new title: ");
+title=input7.nextLine();
+booktitles[ID]=title;
+System.out.println("The book title has been changed");
+}
+else if(choice2==2){ //edit book description
+System.out.println("Enter new description: ");
+description=input7.nextLine();
+bookdescriptions[ID]=description;
+System.out.println("The book description has been changed");
+}
+}
+
+
+else if(choice==7){ // viewing book details
+System.out.println("View all books details:");
+for(int f=0;f<n;f++){
+if(booktitles[f]==null){
+ break;
+}
+else 
+System.out.println((f+1)+". Title: "+booktitles[f]+" , Description: "+bookdescriptions[f]+" , Status: "+bookissued[f]);
+}
+}
+} while(choice!=8);
+} 
+}
