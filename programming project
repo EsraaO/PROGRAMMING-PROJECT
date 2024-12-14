@@ -1,8 +1,6 @@
-package project;
-
 import java.util.Scanner;
-public class PROJECT {
-    
+
+class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
           System.out.println("Enter number of boxes you have:  ");
@@ -140,6 +138,10 @@ int bookcount = 0; // tracks number of books in the library
                           booktitles[k]=booktitles[k+1];
                           bookdescriptions[k]= bookdescriptions[k+1];
                           bookissued[k]=bookissued[k+1];
+                          booktitles[k+1]=null;
+                          bookdescriptions[k+1]=null;
+                          bookissued[k+1]=null;
+                          
                           }
                           }
                                   
@@ -181,3 +183,4 @@ int bookcount = 0; // tracks number of books in the library
     } 
     
 }
+    
