@@ -2,7 +2,7 @@ import java.util.Scanner;
 class Main {
 public static void main(String[] args) {
 Scanner input = new Scanner(System.in);
-System.out.print("Enter number of boxes you have: ");
+System.out.print("Enter number of books: ");
 int n = input.nextInt(); //n is number of boxes
 
 System.out.println("Welcome to the Library Management System!");
@@ -11,7 +11,7 @@ int choice; //declaring choice
 
 String[] booktitles = new String[n]; // Creates an array of size n to store book titles 
 String[] bookdescriptions = new String[n]; // array to store descriptions of books
-String[] bookissued = new String[n]; // array to track availability of books
+boolean[] bookissued = new boolean[n]; // array to track availability of books
 // all elements of  the array are null
 int bookcount = 0; // tracks number of books in the library
         
@@ -48,7 +48,7 @@ for(int i=0;i<n;i++){ // to check if there's an empty position to add a book
 if(booktitles[i]==null){
 booktitles[i]=title; 
 bookdescriptions[i]=description;
-bookissued[i]="available";
+//bookissued[i] is already false
 bookcount++;
 break;
 }
@@ -101,15 +101,15 @@ if(ID<0||ID>=n){ // checking for invalid ID inputs
 System.out.println("Invalid ID");
 continue;
 }
-if(booktitles[ID]==null){ //if ID is nonexistant
+if(booktitles[ID]==null){  //if ID is nonexistant meaning no book exists with ID
 System.out.println("Book ID is nonexistant.");
 } 
-else if(bookissued[ID].equals("available")){ //if book is available
+else if(bookissued[ID]==false){ //if book is available
 System.out.println("Book is available,");
-bookissued[ID]="unavailable";
+bookissued[ID]=true; //book is now unavailable
 System.out.println("The book has been borrowed.");
 }
-else if(bookissued[ID].equals("unavailable")){ // if book is currently unavailable
+else if(bookissued[ID]=true){ // if book is currently unavailable
 System.out.println("Unfortunately, The book is currently unavailable.");
 }
 }
@@ -124,12 +124,15 @@ if(ID<0||ID>=n){ // checking for invalid ID inputs
 System.out.println("Invalid ID");
 continue;
 }
-if(bookissued[ID].equals("unavailable")){
-bookissued[ID]="available";
+if(booktitles[ID]==null){ //if ID is nonexistant meaning no book exists with ID
+System.out.println("Book ID is nonexistant.");
+} 
+else if(bookissued[ID]==true){ //checking if book is unavailable
+bookissued[ID]=false; //then changing to available
 System.out.print("The book has been returned.");
 }
 else{
-System.out.print("The book is already available.");
+    System.out.print("The book is already available.");
 }
 }
 
@@ -145,7 +148,7 @@ continue;
 }
 booktitles[ID]=null;
 bookdescriptions[ID]=null;
-bookissued[ID]=null;
+bookissued[ID]=false;
 bookcount--;
 System.out.print("The book has been deleted");
 for(int k=ID;k<n-1;k++){ //shifting positions to fill the gap
@@ -157,7 +160,7 @@ bookdescriptions[k]= bookdescriptions[k+1];
 bookissued[k]=bookissued[k+1];
 booktitles[k+1]=null;
 bookdescriptions[k+1]=null;
-bookissued[k+1]=null;
+bookissued[k+1]=false;
 }
 }
 }
