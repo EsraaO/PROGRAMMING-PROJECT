@@ -50,7 +50,7 @@ booktitles[i]=title;
 bookdescriptions[i]=description;
 //bookissued[i] is already false
 bookcount++;
-break;
+break; //if we didn't break,the book wil be saved in all positions since they are empty
 }
 }
 } //end of choice 1
@@ -72,7 +72,7 @@ break;
 } 
 else if(booktitles[j].equals(title)){ //if a book with this title exists, print its  description, and status
 System.out.println("Description: "+bookdescriptions[j]+"\nStatus: "+bookissued[j]);
-break;
+break;  // to exit for loop because the book is found
 }
 }
 } 
@@ -82,10 +82,10 @@ System.out.print("Enter book ID: ");
 ID=input2.nextInt();
 if (ID<0||ID>=n){ // checking for invalid ID inputs
 System.out.println("Invalid ID");
-continue; 
+continue; // goes back to while: enter choice
 }
-if(booktitles[ID]==null) // if position is empty, print nonexistant
-System.out.println("Book ID is nonexistant");
+if(booktitles[ID]==null) // if position given is empty, print nonexistant
+System.out.println("No book is available with this ID");
 else // if position ID nonempty , print book title, description, and status
 System.out.println("Title: "+booktitles[ID]+"\nDescription: "+bookdescriptions[ID]+"\nStatus: "+bookissued[ID]);
 }
@@ -102,14 +102,14 @@ System.out.println("Invalid ID");
 continue;
 }
 if(booktitles[ID]==null){  //if ID is nonexistant meaning no book exists with ID
-System.out.println("Book ID is nonexistant.");
+System.out.println("No book is available with this ID.");
 } 
 else if(bookissued[ID]==false){ //if book is available
 System.out.println("Book is available,");
 bookissued[ID]=true; //book is now unavailable
 System.out.println("The book has been borrowed.");
 }
-else if(bookissued[ID]=true){ // if book is currently unavailable
+else if(bookissued[ID]==true){ // if book is currently unavailable
 System.out.println("Unfortunately, The book is currently unavailable.");
 }
 }
@@ -125,7 +125,7 @@ System.out.println("Invalid ID");
 continue;
 }
 if(booktitles[ID]==null){ //if ID is nonexistant meaning no book exists with ID
-System.out.println("Book ID is nonexistant.");
+System.out.println("No book is available with this ID.");
 } 
 else if(bookissued[ID]==true){ //checking if book is unavailable
 bookissued[ID]=false; //then changing to available
@@ -196,7 +196,7 @@ System.out.println("The book description has been changed");
 else if(choice==7){ // viewing book details
 System.out.println("View all books details:");
 for(int f=0;f<n;f++){
-if(booktitles[f]==null){
+if(booktitles[f]==null){ //
  break;
 }
 else 
